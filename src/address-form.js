@@ -1,11 +1,11 @@
 import { html, css, LitElement } from 'lit-element';
-import './components/submit-button.js'
-import './components/form-input.js'
+import './components/submit-button.js';
+import './components/form-input.js';
 import { validateAlphabetic, validateNumeric, validateAlphaNumeric, validatePostal} from './components/validation.js';
 
 export class AddressForm extends LitElement {
-  static get styles() {
-    return css`
+    static get styles() {
+        return css`
       :host {
         display: block;
         padding: 25px;
@@ -18,100 +18,100 @@ export class AddressForm extends LitElement {
         max-width: 350px;
       }
     `;
-  }
-
-  static get properties() {
-    return {
-      title: { type: String },
-
-      streetName: {type: String},
-      houseNumber: {type: Number},
-      houseNumberAddition: {type: String},
-      postalCode: {type: String},
-      city: {type: String},
-      additionalInformation: {type: String},
-
-      invalidMessages: {type: Object}
-    };
-  }
-
-  constructor() {
-    super();
-    this.title = '';
-    
-    this.streetName = '';
-    this.houseNumber = '';
-    this.houseNumberAddition = '';
-    this.postalCode = '';
-    this.city = '';
-    this.additionalInformation = '';
-
-    this.invalidMessages = {
-      streetName: null,
-      houseNumber: null,
-      houseNumberAddition: null,
-      postalCode: null,
-      city: null,
-      additionalInformation: null,
     }
 
-  }
+    static get properties() {
+        return {
+            title: { type: String },
 
-  setValidation(name, validation) {
+            streetName: {type: String},
+            houseNumber: {type: Number},
+            houseNumberAddition: {type: String},
+            postalCode: {type: String},
+            city: {type: String},
+            additionalInformation: {type: String},
+
+            invalidMessages: {type: Object}
+        };
+    }
+
+    constructor() {
+        super();
+        this.title = '';
     
-    let messages = {...this.invalidMessages}
-    messages[name] = validation;
+        this.streetName = '';
+        this.houseNumber = '';
+        this.houseNumberAddition = '';
+        this.postalCode = '';
+        this.city = '';
+        this.additionalInformation = '';
 
-    this.invalidMessages = messages;
-  }
+        this.invalidMessages = {
+            streetName: null,
+            houseNumber: null,
+            houseNumberAddition: null,
+            postalCode: null,
+            city: null,
+            additionalInformation: null,
+        };
 
-  onSubmit() {
+    }
+
+    setValidation(name, validation) {
+    
+        let messages = {...this.invalidMessages};
+        messages[name] = validation;
+
+        this.invalidMessages = messages;
+    }
+
+    onSubmit() {
     //command all children to perform validation
-      //var event = new Event('do-validate', )
-      //window.dispatchEvent(event);
+        //var event = new Event('do-validate', )
+        //window.dispatchEvent(event);
 
-      let validSN = this.shadowRoot.getElementById("streetName").validate() 
-      let validHN = this.shadowRoot.getElementById("houseNumber").validate()
-      let validHNA = this.shadowRoot.getElementById("houseNumberAddition").validate()
-      let validPC = this.shadowRoot.getElementById("postalCode").validate()
-      let validC = this.shadowRoot.getElementById("city").validate()
-      let validAI = this.shadowRoot.getElementById("additionalInformation").validate()
+        let validSN = this.shadowRoot.getElementById('streetName').validate(); 
+        let validHN = this.shadowRoot.getElementById('houseNumber').validate();
+        let validHNA = this.shadowRoot.getElementById('houseNumberAddition').validate();
+        let validPC = this.shadowRoot.getElementById('postalCode').validate();
+        let validC = this.shadowRoot.getElementById('city').validate();
+        let validAI = this.shadowRoot.getElementById('additionalInformation').validate();
 
-      let allValid = validSN && validHN && validHNA && validPC && validC && validAI;
+        let allValid = validSN && validHN && validHNA && validPC && validC && validAI;
 
-      if(allValid){
-        window.alert(`
+        if(allValid){
+            window.alert(`
         ${this.additionalInformation}
         ${this.streetName} ${this.houseNumber} ${this.houseNumberAddition}
         ${this.postalCode} ${this.city}
-      `)
-      }
-  }
+      `);
+        }
+    }
 
   
 
 
-  //Auto formatting methods
-  formatAlphaNumeric(str) {
-    return str.replace(/[^A-Za-z0-9]/gi,"")
-  }
+    //Auto formatting methods
+    formatAlphaNumeric(str) {
+        return str.replace(/[^A-Za-z0-9]/gi,'');
+    }
 
-  formatNumeric(str) {
-    return str.replace(/[^0-9]/gi,"")
-  }
+    formatNumeric(str) {
+        return str.replace(/[^0-9]/gi,'');
+    }
 
-  formatPostal(str) {
-    const validateRegex = new RegExp(/^[1-9][0-9]{3} ?(?!sa|sd|ss)[A-Za-z]{2}$/i,"g");
-    if(validateRegex.test(str)){
-      let p1 = str.substring(0,4);
-      let p2 = str.substring(4, (str.length));
-      return p1 + " " + p2.replace(/[^a-z]/gi,"").toUpperCase();
-    } 
-    return str
-  }
+    formatPostal(str) {
+        const validateRegex = new RegExp(/^[1-9][0-9]{3} ?(?!sa|sd|ss)[A-Za-z]{2}$/i,'g');
+        if(validateRegex.test(str)){
+            let p1 = str.substring(0,4);
+            let p2 = str.substring(4, (str.length));
+            return p1 + ' ' + p2.replace(/[^a-z]/gi,'').toUpperCase();
+        } 
+        return str;
+    }
 
-  render() {
-    return html`
+    render() {
+        return html`
       <h2>${this.title}</h2>
 
       <div id="form-demo" class="form-wrapper">
@@ -124,8 +124,8 @@ export class AddressForm extends LitElement {
           .invalidMessage=${this.invalidMessages.streetName}
           .setValidation=${this.setValidation}
           .onChange=${(str) => {
-            this.streetName = str
-          }}
+        this.streetName = str;
+    }}
           ?mandatory="${true}"
         ></form-input>
 
@@ -138,8 +138,8 @@ export class AddressForm extends LitElement {
           .invalidMessage=${this.invalidMessages.houseNumber}
           .setValidation=${this.setValidation}
           .onChange=${(str) => {
-            this.houseNumber = str
-          }}
+        this.houseNumber = str;
+    }}
           ?mandatory="${true}"
         ></form-input>
 
@@ -152,8 +152,8 @@ export class AddressForm extends LitElement {
           .invalidMessage=${this.invalidMessages.houseNumberAddition}
           .setValidation=${this.setValidation}
           .onChange=${(str) => {
-            this.houseNumberAddition = str
-          }}
+        this.houseNumberAddition = str;
+    }}
         ></form-input>
 
         <form-input 
@@ -166,8 +166,8 @@ export class AddressForm extends LitElement {
           .invalidMessage=${this.invalidMessages.postalCode}
           .setValidation=${this.setValidation}
           .onChange=${(str) => {
-            this.postalCode = str
-          }}
+        this.postalCode = str;
+    }}
           ?mandatory="${true}"
         ></form-input>
 
@@ -180,8 +180,8 @@ export class AddressForm extends LitElement {
           .invalidMessage=${this.invalidMessages.city}
           .setValidation=${this.setValidation}
           .onChange=${(str) => {
-            this.city = str
-          }}
+        this.city = str;
+    }}
           ?mandatory="${true}"
         ></form-input>
 
@@ -194,14 +194,14 @@ export class AddressForm extends LitElement {
           .invalidMessage=${this.invalidMessages.additionalInformation}
           .setValidation=${this.setValidation}
           .onChange=${(str) => {
-            this.additionalInformation = str
-          }}
+        this.additionalInformation = str;
+    }}
         ></form-input>
 
         <submit-button .onClick=${() => this.onSubmit()}></submit-button>
       </div>
     `;
-  }
+    }
 }
 
 customElements.define('address-form', AddressForm);
