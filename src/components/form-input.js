@@ -4,8 +4,6 @@ import { LitElement, html, css } from 'lit-element';
 
 class FormInput extends LitElement {
 
-
-
     static get properties() {
 
         return {
@@ -16,8 +14,6 @@ class FormInput extends LitElement {
             placeholder: {type: String },
             onChange: () => String,
             validation: () => Boolean,
-
-            
 
             //appearance
 
@@ -118,8 +114,6 @@ class FormInput extends LitElement {
 
         //check validation
         this.doValidation(e.target.value);
-
-
 
         //send value
         this.onChange(e.target.value);

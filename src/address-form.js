@@ -66,25 +66,22 @@ export class AddressForm extends LitElement {
     }
 
     onSubmit() {
-    //command all children to perform validation
-        //var event = new Event('do-validate', )
-        //window.dispatchEvent(event);
 
-        let validSN = this.shadowRoot.getElementById('streetName').validate(); 
-        let validHN = this.shadowRoot.getElementById('houseNumber').validate();
-        let validHNA = this.shadowRoot.getElementById('houseNumberAddition').validate();
-        let validPC = this.shadowRoot.getElementById('postalCode').validate();
-        let validC = this.shadowRoot.getElementById('city').validate();
-        let validAI = this.shadowRoot.getElementById('additionalInformation').validate();
-
-        let allValid = validSN && validHN && validHNA && validPC && validC && validAI;
+        const fields = ['streetName', 'houseNumber', 'houseNumberAddition', 'postalCode', 'city', 'additionalInformation']
+        let allValid = true;
+        //iterate through each field to call validation method and take appropriate action
+        fields.forEach(field => {
+          
+          allValid = this.shadowRoot.getElementById(field).validate() && allValid;
+        
+        })
 
         if(allValid){
             window.alert(`
-        ${this.additionalInformation}
-        ${this.streetName} ${this.houseNumber} ${this.houseNumberAddition}
-        ${this.postalCode} ${this.city}
-      `);
+              ${this.additionalInformation}
+              ${this.streetName} ${this.houseNumber} ${this.houseNumberAddition}
+              ${this.postalCode} ${this.city}
+            `);
         }
     }
 
