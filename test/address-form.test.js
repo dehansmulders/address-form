@@ -1,5 +1,5 @@
 import { expect, fixture, html } from '@open-wc/testing';
-import '../address-form.js';
+import '../src/address-form.js';
 
 describe('Address form', () => {
   it('should have title.', async () => {

@@ -1,6 +1,7 @@
 import { html, css, LitElement } from 'lit-element';
 import './components/submit-button.js'
 import './components/form-input.js'
+import { validateAlphabetic, validateNumeric, validateAlphaNumeric, validatePostal} from './components/validation.js';
 
 export class AddressForm extends LitElement {
   static get styles() {
@@ -9,6 +10,12 @@ export class AddressForm extends LitElement {
         display: block;
         padding: 25px;
         color: var(--address-form-text-color, #000);
+      }
+
+      .form-wrapper {
+        display: flex;
+        flex-direction: column;
+        max-width: 350px;
       }
     `;
   }
@@ -26,16 +33,6 @@ export class AddressForm extends LitElement {
 
       invalidMessages: {type: Object}
     };
-  }
-
-  static get styles() {
-    return css`
-      .form-wrapper {
-        display: flex;
-        flex-direction: column;
-        max-width: 350px;
-      }
-    `
   }
 
   constructor() {
@@ -91,39 +88,7 @@ export class AddressForm extends LitElement {
       }
   }
 
-  //Validation methods
-  validateAlphabetic(str) {
-    var validateRegex = new RegExp(/[^A-Za-z]/gi,"g");
-
-    if(!validateRegex.test(str))
-      return null
-    else
-      return "Value should only contain alphabetic characters"
-  }
-
-  validateAlphaNumeric(str) {
-    var validateRegex = new RegExp(/[^A-Za-z0-9]/gi,"g");
-    if(!validateRegex.test(str))
-      return null
-    else
-      return "Value should only contain alphabetic or numeric characters"
-  }
-
-  validateNumeric(str) {
-    var validateRegex = new RegExp(/[^0-9]/gi,"g");
-    if(!validateRegex.test(str))
-      return null
-    else
-      return "Value should only contain numeric characters"
-  }
-
-  validatePostal(str) {
-    var validateRegex = new RegExp(/^[1-9][0-9]{3} ?(?!sa|sd|ss)[A-Za-z]{2}$/i,"g");
-    if(validateRegex.test(str))
-      return null
-    else
-      return "Value is not a valid postal code"
-  }
+  
 
 
   //Auto formatting methods
@@ -136,7 +101,7 @@ export class AddressForm extends LitElement {
   }
 
   formatPostal(str) {
-    var validateRegex = new RegExp(/^[1-9][0-9]{3} ?(?!sa|sd|ss)[A-Za-z]{2}$/i,"g");
+    const validateRegex = new RegExp(/^[1-9][0-9]{3} ?(?!sa|sd|ss)[A-Za-z]{2}$/i,"g");
     if(validateRegex.test(str)){
       let p1 = str.substring(0,4);
       let p2 = str.substring(4, (str.length));
@@ -155,7 +120,7 @@ export class AddressForm extends LitElement {
           label="Street Name"
           maxLength="${30}"
           .value="${this.streetName}"
-          .validation=${this.validateAlphaNumeric}
+          .validation=${validateAlphaNumeric}
           .invalidMessage=${this.invalidMessages.streetName}
           .setValidation=${this.setValidation}
           .onChange=${(str) => {
@@ -169,7 +134,7 @@ export class AddressForm extends LitElement {
           label="House Number"
           maxLength="${5}"
           .value="${this.houseNumber}"
-          .validation=${this.validateNumeric}
+          .validation=${validateNumeric}
           .invalidMessage=${this.invalidMessages.houseNumber}
           .setValidation=${this.setValidation}
           .onChange=${(str) => {
@@ -183,7 +148,7 @@ export class AddressForm extends LitElement {
           label="House Number Addition"
           maxLength="${5}"
           .value="${this.houseNumberAddition}"
-          .validation=${this.validateAlphabetic}
+          .validation=${validateAlphabetic}
           .invalidMessage=${this.invalidMessages.houseNumberAddition}
           .setValidation=${this.setValidation}
           .onChange=${(str) => {
@@ -197,7 +162,7 @@ export class AddressForm extends LitElement {
           maxLength="${7}"
           .value="${this.postalCode}"
           .formatValue=${this.formatPostal}
-          .validation=${this.validatePostal}
+          .validation=${validatePostal}
           .invalidMessage=${this.invalidMessages.postalCode}
           .setValidation=${this.setValidation}
           .onChange=${(str) => {
@@ -211,7 +176,7 @@ export class AddressForm extends LitElement {
           label="City"
           maxLength="${30}"
           .value="${this.city}"
-          .validation=${this.validateAlphaNumeric}
+          .validation=${validateAlphaNumeric}
           .invalidMessage=${this.invalidMessages.city}
           .setValidation=${this.setValidation}
           .onChange=${(str) => {
@@ -225,7 +190,7 @@ export class AddressForm extends LitElement {
           label="Additional Information"
           maxLength="${50}"
           .value="${this.additionalInformation}"
-          .validation=${this.validateAlphaNumeric}
+          .validation=${validateAlphaNumeric}
           .invalidMessage=${this.invalidMessages.additionalInformation}
           .setValidation=${this.setValidation}
           .onChange=${(str) => {
@@ -238,3 +203,5 @@ export class AddressForm extends LitElement {
     `;
   }
 }
+
+customElements.define('address-form', AddressForm);

@@ -1,5 +1,6 @@
 import { expect, fixture, html } from '@open-wc/testing';
 import '../src/components/form-input.js';
+import { validateAlphabetic, validateNumeric, validateAlphaNumeric, validatePostal} from '../src/components/validation.js';
 
 describe('Input field', () => {
   it('should have label.', async () => {
@@ -42,14 +43,6 @@ describe('Input field', () => {
 
 
 describe('Street name field', () => {
-
-    const validateAlphaNumeric = (str) => {
-        var validateRegex = new RegExp(/[^A-Za-z0-9]/gi,"g");
-        if(!validateRegex.test(str))
-          return null
-        else
-          return "Value should only contain alphabetic or numeric characters"
-      }    
 
     it('should be valid with alphanumeric values.', async () => {
         const inputField = await fixture(html`
@@ -96,14 +89,6 @@ describe('Street name field', () => {
 
 describe('House number field', () => {
 
-    const validateNumeric = (str) => {
-        var validateRegex = new RegExp(/[^0-9]/gi,"g");
-        if(!validateRegex.test(str))
-        return null
-        else
-        return "Value should only contain numeric characters"
-      }    
-
     it('should be valid with numeric values.', async () => {
         const inputField = await fixture(html`
             <form-input 
@@ -149,15 +134,6 @@ describe('House number field', () => {
 
 describe('House number addition field', () => {
 
-    const validateAlphabetic = (str) => {
-        var validateRegex = new RegExp(/[^A-Za-z]/gi,"g");
-
-        if(!validateRegex.test(str))
-        return null
-        else
-        return "Value should only contain alphabetic characters"
-      }    
-
     it('should be valid with alphabetic values.', async () => {
         const inputField = await fixture(html`
             <form-input 
@@ -197,15 +173,7 @@ describe('House number addition field', () => {
 
 });
 
-describe('Postal code field', () => {
-
-    const validatePostal = (str) => {
-        var validateRegex = new RegExp(/^[1-9][0-9]{3} ?(?!sa|sd|ss)[A-Za-z]{2}$/i,"g");
-        if(validateRegex.test(str))
-        return null
-        else
-        return "Value is not a valid postal code"
-      }    
+describe('Postal code field', () => {   
 
     it('should be valid with postal format values.', async () => {
         const inputField = await fixture(html`
@@ -261,15 +229,7 @@ describe('Postal code field', () => {
 
 });
 
-describe('City field', () => {
-
-    const validateAlphaNumeric = (str) => {
-        var validateRegex = new RegExp(/[^A-Za-z0-9]/gi,"g");
-        if(!validateRegex.test(str))
-          return null
-        else
-          return "Value should only contain alphabetic or numeric characters"
-      }    
+describe('City field', () => { 
 
     it('should be valid with alphanumeric values.', async () => {
         const inputField = await fixture(html`
@@ -314,15 +274,7 @@ describe('City field', () => {
 
 });
 
-describe('Additional information field', () => {
-
-    const validateAlphaNumeric = (str) => {
-        var validateRegex = new RegExp(/[^A-Za-z0-9]/gi,"g");
-        if(!validateRegex.test(str))
-          return null
-        else
-          return "Value should only contain alphabetic or numeric characters"
-      }    
+describe('Additional information field', () => { 
 
     it('should be valid with alphanumeric values.', async () => {
         const inputField = await fixture(html`
