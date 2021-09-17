@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit-element";
+import { LitElement, html, css } from 'lit-element';
 
 class SubmitButton extends LitElement {
 
@@ -6,12 +6,12 @@ class SubmitButton extends LitElement {
         return {
             onClick: { type: Function},
             disabled: {type: Boolean}
-        }
+        };
     }
 
     constructor() {
         super();
-        this.onClick = (e) => {};
+        this.onClick = () => {};
         this.disabled = false;
     }
 
@@ -24,8 +24,8 @@ class SubmitButton extends LitElement {
           .submit-button button {
               padding: 8px 14px;
           }
-        `
-      }
+        `;
+    }
 
     render() {
         return html`

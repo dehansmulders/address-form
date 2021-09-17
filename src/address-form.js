@@ -1,44 +1,63 @@
 import { html, css, LitElement } from 'lit-element';
+
 import './components/submit-button.js';
+
 import './components/form-input.js';
+
 import { validateAlphabetic, validateNumeric, validateAlphaNumeric, validatePostal} from './components/validation.js';
 
+
+
 export class AddressForm extends LitElement {
+
     static get styles() {
+
         return css`
+
       :host {
         display: block;
         padding: 25px;
         color: var(--address-form-text-color, #000);
+
       }
 
       .form-wrapper {
         display: flex;
         flex-direction: column;
         max-width: 350px;
+
       }
+
     `;
+
     }
 
-    static get properties() {
-        return {
-            title: { type: String },
 
+
+    static get properties() {
+
+        return {
+
+            title: { type: String },
             streetName: {type: String},
             houseNumber: {type: Number},
             houseNumberAddition: {type: String},
             postalCode: {type: String},
             city: {type: String},
             additionalInformation: {type: String},
-
             invalidMessages: {type: Object}
+
         };
+
     }
 
+
+
     constructor() {
+
         super();
+
         this.title = '';
-    
         this.streetName = '';
         this.houseNumber = '';
         this.houseNumberAddition = '';
@@ -47,68 +66,108 @@ export class AddressForm extends LitElement {
         this.additionalInformation = '';
 
         this.invalidMessages = {
+
             streetName: null,
             houseNumber: null,
             houseNumberAddition: null,
             postalCode: null,
             city: null,
             additionalInformation: null,
+
         };
+
+
 
     }
 
+
+
     setValidation(name, validation) {
-    
+
         let messages = {...this.invalidMessages};
         messages[name] = validation;
 
         this.invalidMessages = messages;
+
     }
+
+
 
     onSubmit() {
 
-        const fields = ['streetName', 'houseNumber', 'houseNumberAddition', 'postalCode', 'city', 'additionalInformation']
+        const fields = ['streetName', 'houseNumber', 'houseNumberAddition', 'postalCode', 'city', 'additionalInformation'];
         let allValid = true;
+
         //iterate through each field to call validation method and take appropriate action
+
         fields.forEach(field => {
-          
-          allValid = this.shadowRoot.getElementById(field).validate() && allValid;
-        
-        })
+
+            allValid = this.shadowRoot.getElementById(field).validate() && allValid;
+
+        });
+
+
 
         if(allValid){
+
             window.alert(`
+
               ${this.additionalInformation}
               ${this.streetName} ${this.houseNumber} ${this.houseNumberAddition}
               ${this.postalCode} ${this.city}
+
             `);
+
         }
+
     }
+
+
 
   
 
 
+
+
+
     //Auto formatting methods
+
     formatAlphaNumeric(str) {
+
         return str.replace(/[^A-Za-z0-9]/gi,'');
+
     }
+
+
 
     formatNumeric(str) {
+
         return str.replace(/[^0-9]/gi,'');
+
     }
 
+
+
     formatPostal(str) {
+
         const validateRegex = new RegExp(/^[1-9][0-9]{3} ?(?!sa|sd|ss)[A-Za-z]{2}$/i,'g');
+
         if(validateRegex.test(str)){
             let p1 = str.substring(0,4);
             let p2 = str.substring(4, (str.length));
             return p1 + ' ' + p2.replace(/[^a-z]/gi,'').toUpperCase();
+
         } 
         return str;
+
     }
 
+
+
     render() {
+
         return html`
+
       <h2>${this.title}</h2>
 
       <div id="form-demo" class="form-wrapper">
@@ -127,6 +186,7 @@ export class AddressForm extends LitElement {
         ></form-input>
 
         <form-input 
+
           id="houseNumber"
           label="House Number"
           maxLength="${5}"
@@ -138,6 +198,7 @@ export class AddressForm extends LitElement {
         this.houseNumber = str;
     }}
           ?mandatory="${true}"
+
         ></form-input>
 
         <form-input 
@@ -151,6 +212,7 @@ export class AddressForm extends LitElement {
           .onChange=${(str) => {
         this.houseNumberAddition = str;
     }}
+
         ></form-input>
 
         <form-input 
@@ -196,9 +258,15 @@ export class AddressForm extends LitElement {
         ></form-input>
 
         <submit-button .onClick=${() => this.onSubmit()}></submit-button>
+
       </div>
+
     `;
+
     }
+
 }
+
+
 
 customElements.define('address-form', AddressForm);

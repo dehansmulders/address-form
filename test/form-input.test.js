@@ -3,41 +3,41 @@ import '../src/components/form-input.js';
 import { validateAlphabetic, validateNumeric, validateAlphaNumeric, validatePostal} from '../src/components/validation.js';
 
 describe('Input field', () => {
-  it('should have label.', async () => {
-    const inputField = await fixture(html`
+    it('should have label.', async () => {
+        const inputField = await fixture(html`
       <form-input label=${'Foo Bar'}>
       </form-input>
     `);
-    await inputField.updateComplete;
-    expect(inputField.label).to.equal('Foo Bar');
-  });
+        await inputField.updateComplete;
+        expect(inputField.label).to.equal('Foo Bar');
+    });
 
-  it('should have placeholder.', async () => {
-    const inputField = await fixture(html`
+    it('should have placeholder.', async () => {
+        const inputField = await fixture(html`
       <form-input placeholder=${'Foo Bar'}>
       </form-input>
     `);
-    await inputField.updateComplete;
-    expect(inputField.placeholder).to.equal('Foo Bar');
-  });
+        await inputField.updateComplete;
+        expect(inputField.placeholder).to.equal('Foo Bar');
+    });
 
-  it('should have a value.', async () => {
-    const inputField = await fixture(html`
+    it('should have a value.', async () => {
+        const inputField = await fixture(html`
       <form-input .value=${'Foo Bar'}>
       </form-input>
     `);
-    await inputField.updateComplete;
-    expect(inputField.value).to.equal('Foo Bar');
-  });
+        await inputField.updateComplete;
+        expect(inputField.value).to.equal('Foo Bar');
+    });
 
-  it('should have a invalid message.', async () => {
-    const inputField = await fixture(html`
+    it('should have a invalid message.', async () => {
+        const inputField = await fixture(html`
       <form-input .invalidMessage=${'Foo Bar'}>
       </form-input>
     `);
-    await inputField.updateComplete;
-    expect(inputField.invalidMessage).to.equal('Foo Bar');
-  });
+        await inputField.updateComplete;
+        expect(inputField.invalidMessage).to.equal('Foo Bar');
+    });
 
 });
 
@@ -68,7 +68,7 @@ describe('Street name field', () => {
 
         await inputField.updateComplete;  
         expect(inputField.validate()).to.equal(false);
-        expect(inputField.invalidMessage).to.equal("Value should only contain alphabetic or numeric characters")
+        expect(inputField.invalidMessage).to.equal('Value should only contain alphabetic or numeric characters');
     });
 
     it('should be invalid if empty because it is mandatory.', async () => {
@@ -82,7 +82,7 @@ describe('Street name field', () => {
 
         await inputField.updateComplete;  
         expect(inputField.validate()).to.equal(false);
-        expect(inputField.invalidMessage).to.equal("This field is mandatory")
+        expect(inputField.invalidMessage).to.equal('This field is mandatory');
     });
 
 });
@@ -113,7 +113,7 @@ describe('House number field', () => {
 
         await inputField.updateComplete;  
         expect(inputField.validate()).to.equal(false);
-        expect(inputField.invalidMessage).to.equal("Value should only contain numeric characters")
+        expect(inputField.invalidMessage).to.equal('Value should only contain numeric characters');
     });
 
     it('should be invalid if empty because it is mandatory.', async () => {
@@ -127,7 +127,7 @@ describe('House number field', () => {
 
         await inputField.updateComplete;  
         expect(inputField.validate()).to.equal(false);
-        expect(inputField.invalidMessage).to.equal("This field is mandatory")
+        expect(inputField.invalidMessage).to.equal('This field is mandatory');
     });
 
 });
@@ -156,7 +156,7 @@ describe('House number addition field', () => {
 
         await inputField.updateComplete;  
         expect(inputField.validate()).to.equal(false);
-        expect(inputField.invalidMessage).to.equal("Value should only contain alphabetic characters")
+        expect(inputField.invalidMessage).to.equal('Value should only contain alphabetic characters');
     });
 
     it('should be valid if empty because it is not mandatory.', async () => {
@@ -202,15 +202,15 @@ describe('Postal code field', () => {
 
         await inputField.updateComplete;  
         expect(inputField.validate()).to.equal(false);
-        expect(inputField.invalidMessage).to.equal("Value is not a valid postal code")
+        expect(inputField.invalidMessage).to.equal('Value is not a valid postal code');
 
         inputField.value = '1111 A';
         expect(inputField.validate()).to.equal(false);
-        expect(inputField.invalidMessage).to.equal("Value is not a valid postal code")
+        expect(inputField.invalidMessage).to.equal('Value is not a valid postal code');
 
         inputField.value = '1111 AAA';
         expect(inputField.validate()).to.equal(false);
-        expect(inputField.invalidMessage).to.equal("Value is not a valid postal code")
+        expect(inputField.invalidMessage).to.equal('Value is not a valid postal code');
     });
 
     it('should be invalid if empty because it is mandatory.', async () => {
@@ -224,7 +224,7 @@ describe('Postal code field', () => {
 
         await inputField.updateComplete;  
         expect(inputField.validate()).to.equal(false);
-        expect(inputField.invalidMessage).to.equal("Value is not a valid postal code")
+        expect(inputField.invalidMessage).to.equal('Value is not a valid postal code');
     });
 
 });
@@ -255,7 +255,7 @@ describe('City field', () => {
 
         await inputField.updateComplete;  
         expect(inputField.validate()).to.equal(false);
-        expect(inputField.invalidMessage).to.equal("Value should only contain alphabetic or numeric characters")
+        expect(inputField.invalidMessage).to.equal('Value should only contain alphabetic or numeric characters');
     });
 
     it('should be invalid if empty because it is mandatory.', async () => {
@@ -269,7 +269,7 @@ describe('City field', () => {
 
         await inputField.updateComplete;  
         expect(inputField.validate()).to.equal(false);
-        expect(inputField.invalidMessage).to.equal("This field is mandatory")
+        expect(inputField.invalidMessage).to.equal('This field is mandatory');
     });
 
 });
@@ -298,7 +298,7 @@ describe('Additional information field', () => {
 
         await inputField.updateComplete;  
         expect(inputField.validate()).to.equal(false);
-        expect(inputField.invalidMessage).to.equal("Value should only contain alphabetic or numeric characters")
+        expect(inputField.invalidMessage).to.equal('Value should only contain alphabetic or numeric characters');
     });
 
     it('should be valid if empty because it is not mandatory.', async () => {

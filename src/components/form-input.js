@@ -36,7 +36,7 @@ class FormInput extends LitElement {
         this.label = '';
         this.placeholder = '';
         this.onChange = () => {};
-        this.validation = (n, v) => {};
+        this.validation = () => {};
 
         this.mandatory = false;
         this.invalidMessage = null;
